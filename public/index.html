@@ -1,0 +1,116 @@
+<!doctype html>
+<html lang="pt-BR">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta
+      name="description"
+      content="Demonstração de triagem assistida com evidências públicas selecionadas e revisão humana."
+    />
+    <meta name="theme-color" content="#f4f1e9" />
+    <title>Seekerh Signal | Contratação por evidências</title>
+    <link rel="stylesheet" href="/styles.css" />
+    <script type="module" src="/client/app.js"></script>
+  </head>
+  <body>
+    <a class="skip-link" href="#avaliacao">Ir para a avaliação</a>
+
+    <header class="site-header">
+      <a class="brand" href="#topo" aria-label="Seekerh Signal, início">
+        <span class="brand-mark" aria-hidden="true"><i></i><i></i><i></i></span>
+        <span>Seekerh <strong>Signal</strong></span>
+      </a>
+      <div class="system-status" id="api-status" role="status" aria-live="polite">
+        <span class="status-dot" aria-hidden="true"></span>
+        <span>Conectando evidências</span>
+      </div>
+    </header>
+
+    <main id="topo">
+      <section class="hero" aria-labelledby="hero-title">
+        <div class="hero-copy">
+          <p class="eyebrow"><span>Seekerh Intelligence</span> Demonstração de triagem</p>
+          <h1 id="hero-title">O histórico de entrega fala antes do currículo.</h1>
+          <p class="hero-intro">
+            Regras cruzam cinco requisitos de exemplo com evidências públicas previamente selecionadas. A revisão e a decisão são humanas.
+          </p>
+          <a class="primary-action" href="#avaliacao">
+            Ver leitura executiva
+            <span aria-hidden="true">↘</span>
+          </a>
+        </div>
+
+        <aside class="score-card" aria-label="Resumo da avaliação">
+          <div class="score-card-head">
+            <span>Signal score</span>
+            <span class="live-label"><i aria-hidden="true"></i> Caso demonstrativo</span>
+          </div>
+          <div class="score-main">
+            <p class="score-value"><strong id="overall-score">••</strong><span>/100</span></p>
+            <p id="candidate-role">Lendo perfil executivo</p>
+          </div>
+          <div class="coverage-row">
+            <span>Cobertura de evidências</span>
+            <strong id="coverage-score">••%</strong>
+          </div>
+          <div class="progress-track" aria-hidden="true"><span id="coverage-bar"></span></div>
+          <div class="score-meta">
+            <span><strong id="requirement-count">5</strong> requisitos</span>
+            <span><strong id="proof-count">••</strong> provas ligadas</span>
+          </div>
+        </aside>
+      </section>
+
+      <section class="pipeline section-shell" aria-labelledby="pipeline-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">Fluxo do protótipo</p><h2 id="pipeline-title">Da evidência à revisão explicável</h2></div>
+          <p>Sem pesquisa automática, integração com ATS ou contato com candidatos.</p>
+        </div>
+        <ol class="pipeline-grid">
+          <li><span>01</span><strong>Definir</strong><p>Usa requisitos e pesos cadastrados para este exemplo.</p></li>
+          <li><span>02</span><strong>Consultar</strong><p>Exibe produtos, código e entregas selecionados previamente.</p></li>
+          <li><span>03</span><strong>Correlacionar</strong><p>Conecta cada requisito às melhores evidências.</p></li>
+          <li><span>04</span><strong>Deliberar</strong><p>Entrega a síntese para decisão humana.</p></li>
+        </ol>
+      </section>
+
+      <section class="evaluation section-shell" id="avaliacao" aria-labelledby="evaluation-title">
+        <div class="section-heading">
+          <div><p class="eyebrow">Matriz de evidências</p><h2 id="evaluation-title">Requisito, prova e força do sinal</h2></div>
+          <p id="evaluation-summary">Carregando a leitura do perfil.</p>
+        </div>
+        <div class="matrix-wrap" id="matrix-wrap" aria-busy="true">
+          <table>
+            <thead><tr><th>Requisito</th><th>Resultado esperado</th><th>Score</th><th>Evidências</th></tr></thead>
+            <tbody id="evidence-matrix"><tr class="loading-row"><td colspan="4"><span></span></td></tr></tbody>
+          </table>
+        </div>
+      </section>
+
+      <section class="decision-grid section-shell" aria-label="Síntese da decisão">
+        <article class="decision-card">
+          <p class="eyebrow">Decisão humana</p>
+          <h2 id="recommendation">Aguardando sinais suficientes</h2>
+          <p>A pontuação ilustra a rubrica do protótipo. Não comprova adequação ao cargo nem substitui avaliação humana.</p>
+          <div class="human-check"><span aria-hidden="true">✓</span><div><strong>Controle preservado</strong><p>Nenhuma contratação é automatizada.</p></div></div>
+        </article>
+        <article class="risk-card">
+          <p class="eyebrow">Leitura de risco</p>
+          <h2>O que ainda precisa de validação</h2>
+          <ul id="risk-list"><li class="skeleton-line"></li><li class="skeleton-line short"></li></ul>
+        </article>
+      </section>
+
+      <section class="pilot section-shell" aria-labelledby="pilot-title">
+        <div class="pilot-intro"><p class="eyebrow">Metas propostas, ainda não medidas</p><h2 id="pilot-title">Sucesso definido antes do primeiro match.</h2></div>
+        <dl class="pilot-goals">
+          <div><dt>Tempo de triagem</dt><dd><strong>≥ 30% menos</strong><span>Contra a linha de base</span></dd></div>
+          <div><dt>Afirmações com fonte</dt><dd><strong>100%</strong><span>Grounding obrigatório</span></dd></div>
+          <div><dt>Concordância humana</dt><dd><strong>κ ≥ 0,60</strong><span>Gate do piloto</span></dd></div>
+        </dl>
+      </section>
+    </main>
+
+    <footer><span>Seekerh Signal</span><p>Inteligência para contratar quem já construiu.</p></footer>
+  </body>
+</html>

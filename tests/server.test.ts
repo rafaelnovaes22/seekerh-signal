@@ -38,4 +38,12 @@ describe("HTTP API", () => {
     assert.equal(body.candidateName, "Rafael Novaes");
     assert.equal(body.matches.length, 5);
   });
+
+  it("serves the compiled browser application", async () => {
+    const response = await fetch(`${baseUrl}/client/app.js`);
+    const source = await response.text();
+
+    assert.equal(response.status, 200);
+    assert.match(source, /loadEvaluation/);
+  });
 });

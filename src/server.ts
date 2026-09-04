@@ -8,6 +8,7 @@ import { evaluateTalent } from "./domain/evidence-engine.js";
 
 const PORT = Number(process.env.PORT ?? 3000);
 const PUBLIC_ROOT = join(process.cwd(), "public");
+const CLIENT_BUNDLE = join(process.cwd(), "dist", "src", "client", "app.js");
 const MIME_TYPES: Readonly<Record<string, string>> = {
   ".css": "text/css; charset=utf-8",
   ".html": "text/html; charset=utf-8",
@@ -45,6 +46,18 @@ function servePublicFile(response: ServerResponse, urlPath: string): void {
   createReadStream(filePath).pipe(response);
 }
 
+function serveClientBundle(response: ServerResponse): void {
+  if (!existsSync(CLIENT_BUNDLE)) {
+    sendJson(response, 503, { error: "Interface ainda não compilada" });
+    return;
+  }
+  response.writeHead(200, {
+    "Content-Type": MIME_TYPES[".js"],
+    "Cache-Control": "public, max-age=300",
+  });
+  createReadStream(CLIENT_BUNDLE).pipe(response);
+}
+
 export function routeRequest(request: IncomingMessage, response: ServerResponse): void {
   const url = new URL(request.url ?? "/", "http://localhost");
   if (request.method === "GET" && url.pathname === "/health") {
@@ -53,6 +66,10 @@ export function routeRequest(request: IncomingMessage, response: ServerResponse)
   }
   if (request.method === "GET" && url.pathname === "/api/demo") {
     sendJson(response, 200, evaluateTalent(rafaelProfile, executiveRequirements));
+    return;
+  }
+  if (request.method === "GET" && url.pathname === "/client/app.js") {
+    serveClientBundle(response);
     return;
   }
   if (request.method !== "GET") {

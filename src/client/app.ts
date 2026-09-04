@@ -4,7 +4,7 @@ const API_URL = "/api/demo";
 const STATUS_LABELS: Readonly<Record<MatchStatus, string>> = {
   strong: "Sinal forte",
   partial: "Sinal parcial",
-  missing: "Sem sinal",
+  missing: "Sinal insuficiente",
 };
 
 function requiredElement<T extends HTMLElement>(id: string): T {
@@ -117,7 +117,7 @@ function renderEvaluation(result: TalentEvaluation): void {
   requiredElement("coverage-bar").style.width = `${result.evidenceCoverage}%`;
   renderMatrix(result.matches);
   renderRisks(result.risks);
-  setSystemStatus("ready", "Evidências sincronizadas");
+  setSystemStatus("ready", "Exemplo carregado");
 }
 
 function renderError(error: unknown): void {

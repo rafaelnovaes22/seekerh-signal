@@ -49,7 +49,7 @@ describe("evaluateTalent", () => {
 
     assert.equal(result.overallScore, 94);
     assert.equal(result.evidenceCoverage, 100);
-    assert.equal(result.recommendation, "Avançar para alinhamento executivo");
+    assert.equal(result.recommendation, "Revisar evidências em alinhamento executivo");
   });
 
   it("surfaces missing proof instead of inventing experience", () => {
@@ -65,5 +65,21 @@ describe("evaluateTalent", () => {
     assert.equal(result.overallScore, 0);
     assert.equal(result.evidenceCoverage, 0);
     assert.equal(result.risks.length, 2);
+    assert.equal(result.recommendation, "Reunir novas evidências para revisão humana");
+  });
+
+  it("rejects empty signals, invalid weights and duplicate identifiers", () => {
+    const profile: CandidateProfile = { name: "Exemplo", targetRole: "CAIO", summary: "", evidence: [] };
+    assert.throws(() => evaluateTalent(profile, [{ ...requirements[0]!, signals: [""] }]), /Sinais inválidos/);
+    assert.throws(() => evaluateTalent(profile, [{ ...requirements[0]!, weight: -1 }]), /Peso inválido/);
+    assert.throws(() => evaluateTalent(profile, [{ ...requirements[0]!, weight: Infinity }]), /Peso inválido/);
+    assert.throws(() => evaluateTalent(profile, [requirements[0]!, requirements[0]!]), /Identificador inválido/);
+  });
+
+  it("keeps an empty rubric at zero without implying a hiring decision", () => {
+    const result = evaluateTalent({ name: "Exemplo", targetRole: "CAIO", summary: "", evidence: [] }, []);
+    assert.equal(result.overallScore, 0);
+    assert.equal(result.evidenceCoverage, 0);
+    assert.match(result.recommendation, /revisão humana/);
   });
 });

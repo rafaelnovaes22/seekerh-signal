@@ -69,9 +69,25 @@ function weightedScore(matches: TalentEvaluation["matches"], requirements: reado
 }
 
 function recommendationFor(score: number, coverage: number): string {
-  if (score >= 75 && coverage >= 80) return "Avançar para alinhamento executivo";
+  if (score >= 75 && coverage >= 80) return "Revisar evidências em alinhamento executivo";
   if (score >= 55) return "Validar lacunas com prova de trabalho";
-  return "Não avançar sem novas evidências";
+  return "Reunir novas evidências para revisão humana";
+}
+
+function validateRequirements(requirements: readonly RoleRequirement[]): void {
+  const identifiers = new Set<string>();
+  for (const requirement of requirements) {
+    if (!requirement.id.trim() || identifiers.has(requirement.id)) {
+      throw new Error(`Identificador inválido: recebido ${requirement.id}, esperado id único e não vazio`);
+    }
+    if (!Number.isFinite(requirement.weight) || requirement.weight <= 0) {
+      throw new Error(`Peso inválido: recebido ${requirement.weight}, esperado número positivo e finito`);
+    }
+    if (!requirement.signals.length || requirement.signals.some((signal) => !signal.trim())) {
+      throw new Error(`Sinais inválidos para ${requirement.id}: esperado ao menos um termo não vazio`);
+    }
+    identifiers.add(requirement.id);
+  }
 }
 
 function findRisks(matches: TalentEvaluation["matches"]): readonly string[] {
@@ -84,6 +100,7 @@ export function evaluateTalent(
   profile: CandidateProfile,
   requirements: readonly RoleRequirement[],
 ): TalentEvaluation {
+  validateRequirements(requirements);
   const matches = requirements.map((requirement) => matchRequirement(profile, requirement));
   const overallScore = weightedScore(matches, requirements);
   const proven = matches.filter(({ status }) => status !== "missing").length;

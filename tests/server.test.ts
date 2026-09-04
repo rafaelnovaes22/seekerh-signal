@@ -22,6 +22,17 @@ after(async () => {
 });
 
 describe("HTTP API", () => {
+  it("opens the demonstrative product and serves its stylesheet", async () => {
+    const response = await fetch(baseUrl);
+    assert.equal(response.status, 200);
+    assert.match(await response.text(), /Demonstração de triagem/);
+    assert.equal((await fetch(`${baseUrl}/styles.css`)).status, 200);
+  });
+
+  it("returns explicit errors for missing routes and unsupported methods", async () => {
+    assert.equal((await fetch(`${baseUrl}/missing.js`)).status, 404);
+    assert.equal((await fetch(`${baseUrl}/api/demo`, { method: "POST" })).status, 405);
+  });
   it("reports a ready health check", async () => {
     const response = await fetch(`${baseUrl}/health`);
     const body = (await response.json()) as { status: string };

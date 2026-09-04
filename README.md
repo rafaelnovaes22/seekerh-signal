@@ -4,6 +4,11 @@ Triagem assistida por evidências para transformar uma vaga em uma rubrica audit
 
 > Status: MVP demonstrativo. O sistema apoia a análise e nunca decide uma contratação sozinho.
 
+## Acesso público
+
+- Produto no ar: https://seekerh-signal-production.up.railway.app/
+- Código e revisão: https://github.com/rafaelnovaes22/seekerh-signal/pull/1
+
 ## Problema validado
 
 A Seekerh é uma consultoria de recrutamento fundada em 2019, com equipe enxuta e experiência em vagas de tecnologia. Sua comunicação pública enfatiza contratação por competências, capacidade de entrega, agilidade e avaliação humana. A operação pública de vagas usa a Quickin e inclui posições técnicas.
